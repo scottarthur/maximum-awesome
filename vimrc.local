@@ -16,6 +16,11 @@ if (&t_Co == 256 || has('gui_running'))
   endif
 endif
 
+set background=light
+"set background=dark
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+
 " Disambiguate ,a & ,t from the Align plugin, making them fast again.
 "
 " This section is here to prevent AlignMaps from adding a bunch of mappings
