@@ -1,4 +1,15 @@
 # Add your local tmux config here
+
+# ctrl-j is the prefix
 set-option -g prefix C-j
 unbind-key C-j
 bind-key C-j send-prefix
+
+# I like buffer history
+set-option -g history-limit 100000
+
+# Resize panes
+bind-key J resize-pane -D 5
+bind-key K resize-pane -U 5
+bind-key H resize-pane -L 5
+bind-key L resize-pane -R 5
