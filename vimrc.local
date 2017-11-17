@@ -16,8 +16,8 @@ if (&t_Co == 256 || has('gui_running'))
   endif
 endif
 
-set background=light
-"set background=dark
+"set background=light
+set background=dark
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 
