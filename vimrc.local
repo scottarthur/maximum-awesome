@@ -36,3 +36,6 @@ function! s:RemoveConflictingAlignMaps()
 endfunction
 command! -nargs=0 RemoveConflictingAlignMaps call s:RemoveConflictingAlignMaps()
 silent! autocmd VimEnter * RemoveConflictingAlignMaps
+
+" Don't auto-format jsonnet on save
+let g:jsonnet_fmt_on_save = 0
