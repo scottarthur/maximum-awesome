@@ -29,6 +29,7 @@ Plug 'scrooloose/nerdtree'     " project browser
 Plug 'scrooloose/syntastic'    " syntax validation
 
 " control extensions
+Plug 'tpope/vim-commentary'    " toggle comments with command
 Plug 'tpope/vim-surround'      " commands for changing surrounding chars
 Plug 'tpope/vim-unimpaired'    " various niceties
 Plug 'qpkorr/vim-bufkill'      " close buffer without closing split
@@ -130,7 +131,6 @@ let g:jsonnet_fmt_on_save = 0 "Don't auto-format jsonnet on save
 
 " MISC
 let g:NERDSpaceDelims=1
-let g:gitgutter_enabled = 0
 " Don't copy the contents of an overwritten selection.
 vnoremap p "_dP
 
@@ -210,6 +210,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> ga :GoAlternate<CR>
 nmap <silent> gt :GoTest<CR>
+nmap <silent> gcv :GoCoverageToggle<CR>
 nmap <silent> gtf :GoTestFunc<CR>
 nmap <silent> gdb :DlvTest<CR>
 
@@ -276,6 +277,11 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
+let g:go_fmt_command = "goimports"
 
 " References
 " https://devhints.io/vimscript
