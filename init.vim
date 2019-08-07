@@ -20,6 +20,7 @@ Plug 'fatih/vim-go'            " golang
 Plug 'sebdah/vim-delve'        " golang debugger
 Plug 'hashivim/vim-terraform'  " terraform
 Plug 'google/vim-jsonnet'      " jsonnet
+Plug 'JamshedVesuna/vim-markdown-preview' " markdown preview
 
 " IDE features
 Plug 'ctrlpvim/ctrlp.vim'      " file open search
@@ -98,10 +99,20 @@ set smartcase                                                " case-sensitive se
 set incsearch           " search as characters are entered
 set hlsearch            " highlight all matches
 " }}}
+" Folding {{{
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+set foldmethod=syntax
+nnoremap <space> za
+" }}}
 
 " KEYBOARD SHORTCUTS
 inoremap jk <esc>
 let mapleader = ','
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -117,6 +128,7 @@ nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>] :TagbarToggle<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader>VE :vsp ~/.config/nvim/init.vim<CR>
 noremap <silent> <leader>V :source ~/.config/nvim/init.vim<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " Language config
@@ -126,8 +138,11 @@ let g:terraform_align=1          " Override indentations
 let g:terraform_fold_sections=1  " Allow folding of TF sections
 let g:terraform_remap_spacebar=1 " Map folding of sections to spacebar
 
-" Jsonnet"
+" Jsonnet
 let g:jsonnet_fmt_on_save = 0 "Don't auto-format jsonnet on save
+
+" Markdown
+let vim_markdown_preview_github=0
 
 " MISC
 let g:NERDSpaceDelims=1
