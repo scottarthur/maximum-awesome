@@ -16,24 +16,27 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " language support
-Plug 'fatih/vim-go'            " golang
-Plug 'sebdah/vim-delve'        " golang debugger
-Plug 'hashivim/vim-terraform'  " terraform
-Plug 'google/vim-jsonnet'      " jsonnet
+Plug 'fatih/vim-go'                       " golang
+Plug 'sebdah/vim-delve'                   " golang debugger
+Plug 'buoto/gotests-vim'                  " golang test templates
+Plug 'hashivim/vim-terraform'             " terraform
+Plug 'google/vim-jsonnet'                 " jsonnet
 Plug 'JamshedVesuna/vim-markdown-preview' " markdown preview
 
 " IDE features
-Plug 'ctrlpvim/ctrlp.vim'      " file open search
-Plug 'neoclide/coc.nvim'       " autocompletion
-Plug 'rking/ag.vim'            " find in files
-Plug 'scrooloose/nerdtree'     " project browser
-Plug 'scrooloose/syntastic'    " syntax validation
+Plug 'ctrlpvim/ctrlp.vim'                 " file open search
+Plug 'neoclide/coc.nvim'                  " autocompletion
+Plug 'rking/ag.vim'                       " find in files
+Plug 'scrooloose/nerdtree'                " project browser
+Plug 'scrooloose/syntastic'               " syntax validation
 
 " control extensions
-Plug 'tpope/vim-commentary'    " toggle comments with command
-Plug 'tpope/vim-surround'      " commands for changing surrounding chars
-Plug 'tpope/vim-unimpaired'    " various niceties
-Plug 'qpkorr/vim-bufkill'      " close buffer without closing split
+Plug 'tpope/vim-commentary'               " toggle comments with command
+Plug 'tpope/vim-surround'                 " commands for changing surrounding chars
+Plug 'tpope/vim-unimpaired'               " various niceties
+Plug 'qpkorr/vim-bufkill'                 " close buffer without closing split
+Plug 'vim-scripts/Align'                  " Align text on stuff
+Plug 'vim-scripts/Rename'                 " Rename files
 call plug#end()
 
 " UI SETTINGS
@@ -65,6 +68,8 @@ set backspace=indent,eol,start  " Fix broken backspace in some setups
 set clipboard=unnamed           " yank and paste with the system clipboard
 set directory-=.                " don't store swapfiles in the current directory
 set encoding=utf-8              " it's the 21st century bro
+set textwidth=110               " Set gq comment wrapping to 110 chars
+set formatoptions-=t            " Set gq comment wrapping to 110 chars (also needed I guess)
 " }}}
 " Spaces & Tabs {{{
 filetype indent on
@@ -117,6 +122,7 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+nmap <C-g><C-o> <Plug>window:quickfix:loop
 noremap <leader>l :Align
 nnoremap <leader>a :Ag<space>
 nnoremap <leader>b :CtrlPBuffer<CR>
@@ -169,8 +175,11 @@ augroup configgroup
   autocmd BufEnter *.md setlocal ft=markdown
   autocmd BufEnter *.go setlocal noexpandtab
   autocmd BufEnter *.fish set filetype=conf
+  " Markdown spellcheck, no line wrapping
   autocmd BufEnter *.md set filetype=markdown
   autocmd BufEnter *.md set spell
+  autocmd BufEnter *.md set formatoptions+=t
+  autocmd BufEnter *.md set textwidth=99999
 augroup END
 " }}}
 " COC CONFIG
@@ -183,7 +192,7 @@ set nobackup
 set nowritebackup
 
 " Better display for messages
-set cmdheight=2
+"set cmdheight=2
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
