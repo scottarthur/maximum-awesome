@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " language support
+Plug 'chrisbra/Colorizer'                 " terminal colors
 Plug 'fatih/vim-go'                       " golang
 Plug 'sebdah/vim-delve'                   " golang debugger
 Plug 'buoto/gotests-vim'                  " golang test templates
@@ -25,10 +26,13 @@ Plug 'JamshedVesuna/vim-markdown-preview' " markdown preview
 
 " IDE features
 Plug 'ctrlpvim/ctrlp.vim'                 " file open search
-Plug 'neoclide/coc.nvim'                  " autocompletion
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " autocompletion
 Plug 'rking/ag.vim'                       " find in files
 Plug 'scrooloose/nerdtree'                " project browser
 Plug 'scrooloose/syntastic'               " syntax validation
+Plug 'junegunn/vim-easy-align'            " Markdown align
+Plug 'editorconfig/editorconfig-vim'      " Editor config sync
+
 
 " control extensions
 Plug 'tpope/vim-commentary'               " toggle comments with command
@@ -45,7 +49,8 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 """"""" SOLARIZED COLORSCHEME """"""""
 colorscheme solarized
-set background=dark
+set background=light
+"set background=dark
 "let g:solarized_visibility = "high"
 "let g:solarized_contrast = "high"
 
@@ -63,13 +68,15 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 " Misc {{{
+set autowrite                   " automatically save files
 set autoread                    " reload files when changed on disk, i.e. via `git checkout`
 set backspace=indent,eol,start  " Fix broken backspace in some setups
 set clipboard=unnamed           " yank and paste with the system clipboard
 set directory-=.                " don't store swapfiles in the current directory
 set encoding=utf-8              " it's the 21st century bro
-set textwidth=110               " Set gq comment wrapping to 110 chars
+set textwidth=90                " Set gq comment wrapping to 110 chars
 set formatoptions-=t            " Set gq comment wrapping to 110 chars (also needed I guess)
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 " }}}
 " Spaces & Tabs {{{
 filetype indent on
@@ -305,10 +312,23 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+
 let g:go_fmt_command = "goimports"
+" Use golines to format with a line width of 120
+"let g:go_fmt_command = "golines"
+"let g:go_fmt_options = {
+"    \ 'golines': '-m 120',
+"    \ }
+"
+" Open Delve in full window
+let g:delve_new_command = "enew"
+
 
 " References
 " https://devhints.io/vimscript
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html#Q_op
 " https://dougblack.io/words/a-good-vimrc.html
 " https://octetz.com/posts/vim-as-go-ide
+"
+" Troubleshooting!
+" - If you upgrade _something_ and go CoC breaks, run :CocInstall coc-go
